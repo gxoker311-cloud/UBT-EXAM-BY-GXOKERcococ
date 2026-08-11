@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Gxoker UBT Practice Exam</title>
+    <title>Gxoker UBT Exam Practice</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', 'Pyidaungsu', sans-serif; }
         
-        /* ⚪ Background Clean White */
-        body { background: #ffffff; color: #1e293b; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 12px; }
+        /* ⚪ နောက်ခံကို အဖြူရောင် ထားရှိခြင်း */
+        body { background: #ffffff; color: #0f172a; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 12px; }
 
-        /* 🏆 Main UBT Card Base */
-        .ubt-card { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 20px; width: 100%; max-width: 480px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); overflow: hidden; display: flex; flex-direction: column; }
+        /* 🏆 UBT Card Style */
+        .ubt-card { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 24px; width: 100%; max-width: 480px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; }
         .header-banner img { width: 100%; height: auto; display: block; }
         
         .title-container { padding: 20px 20px 10px 20px; text-align: center; }
         .title-text { font-size: 0.95rem; font-weight: 800; line-height: 1.5; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* 🔴 Target Highlight Style (Red + Underline) */
-        .highlight-red { color: #ef4444; text-decoration: underline; font-weight: 800; }
+        /* 🔴 စကားစုနှင့် ကွက်လပ်များကို အနီရောင်ဖြင့် မျဉ်းတားရန် Class */
+        .highlight-red { color: #dc2626 !important; font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 
         /* 🚪 Welcome Screen */
         .input-group { padding: 10px 25px 20px 25px; }
         .info-label { font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 6px; }
         .name-input { width: 100%; padding: 14px; border: 2px solid #cbd5e1; border-radius: 14px; font-size: 1rem; font-weight: 700; color: #0f172a; outline: none; text-align: center; background: #f8fafc; transition: 0.2s; }
-        .name-input:focus { border-color: #2563eb; background: #fff; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+        .name-input:focus { border-color: #2563eb; background: #fff; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15); }
 
         /* 📱 Screen Displays */
         #welcome-screen, #exam-ui, #result-screen, #review-screen { width: 100%; display: none; }
@@ -37,12 +37,17 @@
         .progress-box { width: 100%; height: 6px; background: #e2e8f0; border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
         .progress-fill { height: 100%; width: 100%; background: #10b981; transition: width 1s linear, background 0.3s; }
 
-        .q-text { font-size: 14px; font-weight: 700; margin-bottom: 12px; line-height: 1.6; background: #f8fafc; padding: 16px; border-radius: 14px; border: 1px solid #e2e8f0; white-space: pre-line; }
+        .q-text { font-size: 14px; font-weight: 700; margin-bottom: 12px; line-height: 1.6; background: #f8fafc; padding: 16px; border-radius: 14px; border: 1px solid #e2e8f0; white-space: pre-line; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
         
+        /* 🖼️ Image Box */
+        .q-img-box { display: none; width: 100%; max-height: 220px; background: #ffffff; border: 2px solid #2563eb; border-radius: 14px; overflow: hidden; margin-bottom: 12px; position: relative; cursor: pointer; text-align: center; padding: 6px; }
+        .q-img-box img { max-width: 100%; max-height: 200px; width: auto; height: auto; object-fit: contain; border-radius: 8px; }
+        .zoom-hint { position: absolute; bottom: 6px; right: 10px; background: rgba(15, 23, 42, 0.75); color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 6px; font-weight: 700; pointer-events: none; }
+
         /* Options Style */
         .answer-zone { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-        .opt-item { background: #fff; border: 2px solid #f1f5f9; padding: 14px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; font-size: 13px; font-weight: 700; transition: all 0.2s ease; }
-        .opt-item:hover { border-color: #cbd5e1; background: #f8fafc; }
+        .opt-item { background: #fff; border: 2px solid #e2e8f0; padding: 14px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; font-size: 13px; font-weight: 700; transition: all 0.2s ease; }
+        .opt-item:hover { border-color: #94a3b8; background: #f8fafc; }
         .opt-item.active { background: #eff6ff; border-color: #2563eb; color: #1d4ed8; transform: scale(1.01); }
         .opt-num { width: 24px; height: 24px; border: 2px solid currentColor; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 11px; flex-shrink: 0; }
         
@@ -55,15 +60,15 @@
         /* Navigation Buttons */
         .nav-controls { display: flex; gap: 10px; margin-bottom: 12px; }
         .btn-nav { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 700; cursor: pointer; transition: 0.2s; }
-        .btn-submit { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
+        .btn-submit { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
 
         /* 🏆 Result Screen */
         .result-main { padding: 0 25px 15px 25px; display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; }
         .student-name { font-size: 1.3rem; font-weight: 800; color: #0f172a; line-height: 1.2; margin-bottom: 12px; word-break: break-word; }
-        .score-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 10px 20px; border-radius: 16px; display: inline-block; text-align: center; }
+        .score-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 10px 20px; border-radius: 16px; display: inline-block; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .score-display { font-size: 2.2rem; font-weight: 900; color: #2563eb; line-height: 1; }
         
-        .photo-box { width: 95px; height: 115px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: #fff; }
+        .photo-box { width: 95px; height: 115px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .photo-box img { width: 100%; height: 100%; object-fit: contain; }
         
         .divider { height: 1px; background: #e2e8f0; margin: 0 25px 15px 25px; }
@@ -81,13 +86,19 @@
 
         .badge-container { text-align: center; margin-bottom: 10px; }
         .status-badge { color: #ffffff; font-weight: 800; font-size: 0.9rem; padding: 10px 30px; border-radius: 30px; display: inline-block; letter-spacing: 0.5px; }
-        .status-badge.pass { background: #10b981; }
-        .status-badge.fail { background: #ef4444; }
+        .status-badge.pass { background: #10b981; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
+        .status-badge.fail { background: #ef4444; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4); }
+
+        /* 🔍 Fullscreen Image Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.85); z-index: 9999; justify-content: center; align-items: center; padding: 15px; }
+        .modal-overlay img { max-width: 95%; max-height: 85vh; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: contain; }
+        .modal-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 28px; font-weight: 800; cursor: pointer; background: rgba(255,255,255,0.2); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
         /* 📝 Review Answers Screen Styling */
         #review-screen { padding: 20px; max-height: 85vh; overflow-y: auto; }
         .review-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 15px; margin-bottom: 15px; }
         .review-q-title { font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 10px; white-space: pre-line; line-height: 1.5; }
+        .review-img { max-width: 100%; max-height: 150px; object-fit: contain; border-radius: 8px; margin-bottom: 10px; border: 1px solid #cbd5e1; }
         .review-opt { padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0; background: #fff; }
         .review-opt.correct-ans { background: #dcfce7; border-color: #22c55e; color: #15803d; }
         .review-opt.wrong-user-ans { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
@@ -130,6 +141,12 @@
             <div class="q-palette" id="palette"></div>
 
             <div class="q-text" id="q-text">Loading...</div>
+
+            <!-- 🖼️ Image Display Box -->
+            <div class="q-img-box" id="q-img-box" onclick="zoomImage()">
+                <img id="q-img" src="" alt="Question Image">
+                <div class="zoom-hint">🔍 ပုံကိုနှိပ်၍ အနီးကပ်ကြည့်ပါ</div>
+            </div>
 
             <div class="answer-zone" id="ans-list"></div>
             
@@ -201,107 +218,148 @@
         </div>
     </div>
 
+    <!-- 🔍 Fullscreen Image Modal -->
+    <div class="modal-overlay" id="img-modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img id="modal-img" src="" alt="Zoomed Graph Image">
+    </div>
+
 <script>
-    // 📌 [Questions Data] မေးခွန်း ၁ မှ ၂၀ စလုံးနှင့် စကားစုများအနီရောင်/အောက်လိုင်း ပြင်ဆင်ချက်များ
+    // 📌 [Questions Data] မေးခွန်း ၁ မှ ၂၀ စလုံးနှင့် မေးခွန်း/အဖြေထဲမှ စကားစုများအား အနီရောင်မျဉ်းတားစနစ် ထည့်သွင်းထားပါသည်
     const data = [
         {
-            q: "1. 빈칸에 들어갈 가장 알맞은 것을 고르십시오.\n\n그라인더 작업 중 킥백 현상을 예방하려면 손잡이를 ( <span class='highlight-red'>______</span> ) 잡아야 합니다.",
+            q: "1. 그라인더 작업 중 킥백 현상을 예방하려면 손잡이를 ( <span class=\"highlight-red\">______</span> ) 잡아야 합니다.",
+            img: null,
             a: ["느슨하게", "견고히", "대충", "가볍게"],
             c: 1
         },
         {
-            q: "2. 빈칸에 들어갈 가장 알맞은 것을 고르십시오.\n\n2024년부터 병원 접수 시 신분증을 ( <span class='highlight-red'>______</span> ) 않으면 보험 혜택을 못 받습니다.",
+            q: "2. 2024년부터 병원 접수 시 신분증을 ( <span class=\"highlight-red\">______</span> ) 않으면 보험 혜택을 못 받습니다.",
+            img: null,
             a: ["제시하지", "분실하지", "신청하지", "버리지"],
             c: 0
         },
         {
-            q: "3. 빈칸에 들어갈 가장 알맞은 것을 고르십시오.\n\n비가 오지 않아 흙이 딱딱하게 굳었을 때는 물을 뿌려 흙을 ( <span class='highlight-red'>______</span> ) 만들어야 합니다.",
+            q: "3. 비가 오지 않아 흙이 딱딱하게 굳었을 때는 물을 뿌려 흙을 ( <span class=\"highlight-red\">______</span> ) 만들어야 합니다.",
+            img: null,
             a: ["부드럽게", "촉촉하게", "건조하게", "거칠게"],
             c: 0
         },
         {
-            q: "4. 빈칸에 들어갈 가장 알맞은 것을 고르십시오.\n\n작업 중 기계 이상을 발견하면 혼자 해결하려 하지 말고 상급자에게 즉시 ( <span class='highlight-red'>______</span> ) 해야 합니다.",
+            q: "4. 작업 중 기계 이상을 발견하면 혼자 해결하려 하지 말고 상급자에게 즉시 ( <span class=\"highlight-red\">______</span> ) 해야 합니다.",
+            img: null,
             a: ["보고해야", "방치해야", "고집해야", "연기해야"],
             c: 0
         },
         {
-            q: "5. 빈칸에 들어갈 가장 알맞은 것을 고르십시오.\n\n밀폐된 공간에서 유독 가스로 인한 중독을 막으려면 작업 전 ( <span class='highlight-red'>______</span> )을/를 켜야 합니다.",
+            q: "5. 밀폐된 공간에서 유독 가스로 인한 중독을 막으려면 작업 전 ( <span class=\"highlight-red\">______</span> )을/를 켜야 합니다.",
+            img: null,
             a: ["소화기", "환풍기", "비상벨", "양망기"],
             c: 1
         },
         {
-            q: "6. 다음 설명에 알맞은 어휘를 고르십시오.\n\n정월대보름 아침에 기쁜 소식만 듣고 귀가 밝아지기를 바라며 마시는 술입니다.",
+            q: "6. 정월대보름 아침에 기쁜 소식만 듣고 귀가 밝아지기를 바라며 마시는 술입니다.",
+            img: null,
             a: ["창포주", "귀밝이술", "음복", "소주"],
             c: 1
         },
         {
-            q: "7. 다음 설명에 알맞은 어휘를 고르십시오.\n\n동짓날에 액운과 나쁜 귀신을 쫓기 위해 대문이나 담장에 뿌리는 음식입니다.",
+            q: "7. 동짓날에 액운과 나쁜 귀신을 쫓기 위해 대문이나 담장에 뿌리는 음식입니다.",
+            img: null,
             a: ["떡국", "송편", "팥죽", "오곡밥"],
             c: 2
         },
         {
-            q: "8. 다음 설명에 알맞은 어휘를 고르십시오.\n\n자격이 없는 사람이 거짓이나 부정한 방법으로 건강보험 혜택을 받는 행위입니다.",
+            q: "8. 자격이 없는 사람이 거짓이나 부정한 방법으로 건강보험 혜택을 받는 행위입니다.",
+            img: null,
             a: ["정상 수급", "부정 수급", "자발적 납부", "의무 제출"],
             c: 1
         },
         {
-            q: "9. 다음 설명에 알맞은 어휘를 고르십시오.\n\n어업에서 바다 속의 그물이나 어망을 배 위로 끌어올릴 때 사용하는 기계입니다.",
+            q: "9. 어업에서 바다 속의 그물이나 어망을 배 위로 끌어올릴 때 사용하는 기계입니다.",
+            img: null,
             a: ["양망기", "용접기", "발전기", "절단기"],
             c: 0
         },
         {
-            q: "10. 다음 설명에 알맞은 어휘를 고르십시오.\n\n금속이나 재료의 표면을 매끄럽게 문질러 갈거나 광택을 내는 작업입니다.",
+            q: "10. 금속이나 재료의 표면을 매끄럽게 문질러 갈거나 광택을 내는 작업입니다.",
+            img: null,
             a: ["절단 작업", "연마 작업", "천공 작업", "조립 작업"],
             c: 1
         },
         {
-            q: "11. 다음 밑줄 친 단어와 의미가 가장 비슷한 것을 고르십시오.\n\n\"온도와 습도를 정확하게 <span class='highlight-red'>측정해서</span> 기록해야 합니다.\"",
+            q: "11. 다음 밑줄 친 단어와 의미가 가장 비슷한 것을 고르십시오.\n\"온도와 습도를 정확하게 <span class=\"highlight-red\">측정해서</span> 기록해야 합니다.\"",
+            img: null,
             a: ["준비해서", "청소해서", "재어서", "고쳐서"],
             c: 2
         },
         {
-            q: "12. 다음 밑줄 친 단어와 의미가 가장 비슷한 것을 고르십시오.\n\n\"작업장 내에서는 타인을 <span class='highlight-red'>배려하는</span> 자세가 필요합니다.\"",
+            q: "12. 다음 밑줄 친 단어와 의미가 가장 비슷한 것을 고르십시오.\n\"작업장 내에서는 타인을 <span class=\"highlight-red\">배려하는</span> 자세가 필요합니다.\"",
+            img: null,
             a: ["무시하는", "생각하는", "비난하는", "피하는"],
             c: 1
         },
         {
-            q: "13. 다음 단어의 반대말은 무엇입니까?\n\n<span class='highlight-red'>[ (신발끈을) 묶다 ]</span>",
+            q: "13. 다음 단어의 반대말은 무엇입니까?\n<span class=\"highlight-red\">[ (신발끈을) 묶다 ]</span>",
+            img: null,
             a: ["벗다", "잠그다", "풀다", "묵다"],
             c: 2
         },
         {
-            q: "14. 다음 단어의 반대말은 무엇입니까?\n\n<span class='highlight-red'>[ 수입하다 ]</span>",
+            q: "14. 다음 단어의 반대말은 무엇입니까?\n<span class=\"highlight-red\">[ 수입하다 ]</span>",
+            img: null,
             a: ["수출하다", "구매하다", "판매하다", "입국하다"],
             c: 0
         },
         {
-            q: "15. 다음 단어들과 관계있는 것을 고르십시오.\n\n<span class='highlight-red'>[ 더위팔기, 귀밝이술, 부럼 깨물기, 달집태우기 ]</span>",
+            q: "15. 다음 단어들과 관계있는 것을 고르십시오.\n<span class=\"highlight-red\">[ 더위팔기, 귀밝이술, 부럼 깨물기, 달집태우기 ]</span>",
+            img: null,
             a: ["설날", "추석", "정월대보름", "단오"],
             c: 2
         },
         {
-            q: "16. 다음 단어들과 관계있는 것을 고르십시오.\n\n<span class='highlight-red'>[ 마약 검사, 여권, 체류지 입증 서류 ]</span>",
+            q: "16. 다음 단어들과 관계있는 것을 고르십시오.\n<span class=\"highlight-red\">[ 마약 검사, 여권, 체류지 입증 서류 ]</span>",
+            img: null,
             a: ["한국어 능력 시험 신청", "새 집 계약", "외국인 등록증 발급", "항공권 예매"],
             c: 2
         },
         {
-            q: "17. 다음 단어들과 관계있는 것을 고르십시오.\n\n<span class='highlight-red'>[ 국민연금, 건강보험, 고용보험, 산재보험 ]</span>",
+            q: "17. 다음 단어들과 관계있는 것을 고르십시오.\n<span class=\"highlight-red\">[ 국민연금, 건강보험, 고용보험, 산재보험 ]</span>",
+            img: null,
             a: ["4대 사회보험", "금융 기관", "세금 종류", "근로 계약서"],
             c: 0
         },
         {
             q: "18. 다음 중 밑줄 친 부분이 맞는 것을 고르십시오.",
-            a: ["비상 상황 시에는 소화기를 누르십시오.", "<span class='highlight-red'>슬립이 발생하기 쉬우므로 감속해야 합니다</span>.", "장갑을 끼고 회전 기계를 작업해야 안전합니다.", "사고가 나면 상급자에게 보고하지 않기로 했습니다."],
+            img: null,
+            a: [
+                "비상 상황 시에는 <span class=\"highlight-red\">소화기를 누르십시오</span>.",
+                "빗길에서는 <span class=\"highlight-red\">슬립이 발생하기 쉬우므로 감속해야 합니다</span>.",
+                "<span class=\"highlight-red\">장갑을 끼고 회전 기계를 작업해야</span> 안전합니다.",
+                "사고가 나면 <span class=\"highlight-red\">상급자에게 보고하지 않기로 했습니다</span>."
+            ],
             c: 1
         },
         {
             q: "19. 다음 중 밑줄 친 부분이 맞는 것을 고르십시오.",
-            a: ["떡국은 추석에 먹는 대표적인 음식입니다.", "<span class='highlight-red'>병원 진료 시 신분증 제시가 의무화되었습니다</span>.", "출국만기보험은 근로자가 직접 가입하는 보험입니다.", "킥백 현상을 막으려면 공구를 느슨하게 잡아야 합니다."],
+            img: null,
+            a: [
+                "떡국은 <span class=\"highlight-red\">추석에 먹는 대표적인 음식입니다</span>.",
+                "2024년부터 <span class=\"highlight-red\">병원 진료 시 신분증 제시가 의무화되었습니다</span>.",
+                "출국만기보험은 <span class=\"highlight-red\">근로자가 직접 가입하는 보험입니다</span>.",
+                "킥백 현상을 막으려면 <span class=\"highlight-red\">공구를 느슨하게 잡아야 합니다</span>."
+            ],
             c: 1
         },
         {
             q: "20. 다음 중 밑줄 친 부분이 맞는 것을 고르십시오.",
-            a: ["귀국비용보험은 퇴직금을 대신하여 받는 보험입니다.", "<span class='highlight-red'>모바일 신분증을 활용할 수 있습니다</span>.", "양망기는 건설 현장에서 암석을 폭파할 때 씁니다.", "부럼 깨물기는 단오에 하는 전통 풍습입니다."],
+            img: null,
+            a: [
+                "귀국비용보험은 <span class=\"highlight-red\">퇴직금을 대신하여 받는 보험입니다</span>.",
+                "건강보험 부정 수급을 막기 위해 <span class=\"highlight-red\">모바일 신분증을 활용할 수 있습니다</span>.",
+                "양망기는 <span class=\"highlight-red\">건설 현장에서 암석을 폭파할 때 씁니다</span>.",
+                "부럼 깨물기는 <span class=\"highlight-red\">단오에 하는 전통 풍습입니다</span>."
+            ],
             c: 1
         }
     ];
@@ -329,8 +387,21 @@
     function render() {
         const item = data[currentIndex];
         document.getElementById('q-progress').innerText = `READING (${currentIndex + 1}/${data.length})`;
+        
+        // 🔴 မေးခွန်းစာကြောင်း အနီရောင်မျဉ်းတား ရလဒ်များအား HTML ဖြင့် Render လုပ်ခြင်း
         document.getElementById('q-text').innerHTML = item.q;
+        
+        // 🖼️ Image Handling
+        const imgBox = document.getElementById('q-img-box');
+        const qImg = document.getElementById('q-img');
+        if (item.img) {
+            qImg.src = item.img;
+            imgBox.style.display = "block";
+        } else {
+            imgBox.style.display = "none";
+        }
 
+        // 🔴 အဖြေရွေးချယ်မှုများထဲမှ အနီရောင်မျဉ်းတား စကားစုများပါ Render လုပ်ခြင်း
         document.getElementById('ans-list').innerHTML = item.a.map((opt, i) => `
             <div class="opt-item ${userAns[currentIndex] === i ? 'active' : ''}" onclick="pick(${i})">
                 <div class="opt-num">${i+1}</div>
@@ -343,6 +414,18 @@
                 ${i+1}
             </div>
         `).join('');
+    }
+
+    function zoomImage() {
+        const currentImgSrc = data[currentIndex].img;
+        if(currentImgSrc) {
+            document.getElementById('modal-img').src = currentImgSrc;
+            document.getElementById('img-modal').style.display = "flex";
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('img-modal').style.display = "none";
     }
 
     function pick(i) { 
@@ -405,8 +488,8 @@
             badge.innerText = "အောင်မြင်ပါသည် (PASSED)";
             badge.className = "status-badge pass";
         } else {
-            badge.innerText = "ကျရှုံးပါသည် (FAILED)"
-badge.className = "status-badge fail";
+            badge.innerText = "ကျရှုံးပါသည် (FAILED)";
+            badge.className = "status-badge fail";
         }
 
         document.getElementById('exam-ui').style.display = 'none';
@@ -427,6 +510,7 @@ badge.className = "status-badge fail";
             return `
                 <div class="review-card">
                     <div class="review-q-title">${item.q}</div>
+                    ${item.img ? `<img src="${item.img}" class="review-img">` : ''}
                     <div style="margin-top:8px;">
                         ${item.a.map((opt, optIdx) => {
                             let optClass = "review-opt";
